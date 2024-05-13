@@ -141,14 +141,14 @@ public class Halter {
     //___________________________________________________________________________________________________________
     protected static HashMap<String, String> getStringStringHashMap() {
         HashMap<String, String> fehlerMeldungen = new HashMap<>();
-        fehlerMeldungen.put("1", "Bitte nur Buchstaben eingeben. Umlaute, Zahlen und Sonderzeichen sind ausgeschlossen.");
-        fehlerMeldungen.put("2", "Bitte nur Buchstaben und Ganzzahlen eingeben. Sonderzeichen sind ausgeschlossen.");
-        fehlerMeldungen.put("3", "Bitte nur Buchstaben eingeben. Zahlen und Sonderzeichen sind ausgeschlossen.");
-        fehlerMeldungen.put("4", "Bitte genau 17 Zeichen (Buchstaben und Zahlen) eingeben. Sonderzeichen und Umlaute sind ausgeschlossen.");
+        fehlerMeldungen.put("nurA-Z", "Bitte nur Buchstaben eingeben. Umlaute, Zahlen und Sonderzeichen sind ausgeschlossen.");
+        fehlerMeldungen.put("nurA-Z+0-9", "Bitte nur Buchstaben und Ganzzahlen eingeben. Sonderzeichen sind ausgeschlossen.");
+        fehlerMeldungen.put("nurA-Z+ÄÖÜ", "Bitte nur Buchstaben eingeben. Zahlen und Sonderzeichen sind ausgeschlossen.");
         return fehlerMeldungen;
     }
 
     protected static String getEingabeString(String nachricht, String fehlerMeldung, String zulaessigeZeichen, int min, int max) {
+        getStringStringHashMap();
         System.out.println(nachricht);
         Scanner scanner = new Scanner(System.in);
         String eingabe = scanner.nextLine().trim();

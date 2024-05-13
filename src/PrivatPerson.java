@@ -31,36 +31,15 @@ public class PrivatPerson extends Halter {
     public boolean isPersonalausweisVorhanden() {
         return PersonalausweisVorhanden;
     }
-    
 
-    public String erstellePersonalausweis() {
-        return (setName("Vorname") + " : " +
-                setName("Nachname") + " : " +
-                setGeburtstagVollstaendig() + " : " +
-                setGeburtsOrt()).toUpperCase();
+    public void erstellePersonalausweis() {
+        HashMap<String, String> fehlerMeldungen = getStringStringHashMap();
+        String vorname = getEingabeString("Bitte Vorname eingeben: ",fehlerMeldungen.get("nurA-Z+ÄÖÜ"),"[A-Za-zÄÖÜäöü ]+",1,50);
+        String nachname = getEingabeString("Bitte Nachname eingeben: ",fehlerMeldungen.get("nurA-Z+ÄÖÜ"),"[A-Za-zÄÖÜäöü ]+",1,50);
+        String geburtsOrt = getEingabeString("Bitte Geburtsort eingeben: ",fehlerMeldungen.get("nurA-Z+ÄÖÜ"),"[A-Za-zÄÖÜäöü ]+",1,50);
+        setPersonalausweis((vorname+" : "+nachname+" : "+setGeburtstagVollstaendig() + " : " +
+                geburtsOrt).toUpperCase());
     }
-
-    private String setName(String vorNachName) {
-        System.out.println("Bitte " + vorNachName + " eingeben: ");
-        Scanner scanner = new Scanner(System.in);
-        String eingabe = scanner.nextLine().trim();
-        String name = "";
-        try {
-            if (eingabe != null && !eingabe.isEmpty() && !eingabe.isBlank() && eingabe.matches("[A-Za-zÄÖÜäöü ]+")
-            ) {
-                name = eingabe;
-            } else {
-                System.out.println("Das Feld darf nicht Leer sein. Und keine Zahlen enthalten");
-                return setName(vorNachName);
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("Was denn hier los?");
-            return setName(vorNachName);
-        }
-
-        return name;
-    }
-
     private String setGeburtstagVollstaendig() {
         return setGeburtsTag() + "." + setGeburtsMonat() + "." + setGeburtsJahr();
     }
@@ -68,30 +47,12 @@ public class PrivatPerson extends Halter {
     private int setGeburtsTag() {
         return getEingabeInt("Bitte Geburtstag ein : (zwischen 1 und 31)", 1, 31);
     }
-
     private String setGeburtsMonat() {
         int eingabe = getEingabeInt("Bitte geben sie ihren Geburtsmonat ein: (zwischen 1 und 12)", 1, 12);
         return Monate_Enum.values()[eingabe - 1].name();
     }
-
     private int setGeburtsJahr() {
         int aktuellesJahr = Year.now().getValue();
         return getEingabeInt("Bitte Geburtsjahr ein : (zwischen " + (aktuellesJahr - 110) + " und " + aktuellesJahr + ".", (aktuellesJahr - 110), aktuellesJahr);
     }
-
-
-    private String setGeburtsOrt() {
-        System.out.println("Bitte Geburtsort eingeben: ");
-        Scanner scanner = new Scanner(System.in);
-        String eingabe = scanner.nextLine().trim();
-        String geburtsort = "";
-        if (eingabe != null && !eingabe.isEmpty() && !eingabe.isBlank() && eingabe.matches("[A-Za-zÄÖÜäöü ]+")) {
-            geburtsort = eingabe;
-        } else {
-            System.out.println("Das Feld darf nicht leer sein und nur Buchstaben enthalten.");
-            return setGeburtsOrt();
-        }
-        return geburtsort;
-    }
-
 }
